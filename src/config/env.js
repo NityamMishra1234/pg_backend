@@ -1,0 +1,5 @@
+PORT=5000
+MONGO_URI="mongodb+srv://nityam1111_db_user:Lotusgreen123@cluster0.kejh8rk.mongodb.net/"
+JWT_SECRET=supersecretkey
+JWT_EXPIRES_IN="7d"
+
