@@ -42,7 +42,7 @@ app.use(morgan("dev"));
 app.use(express.json({ limit: "10kb" }));
 
 app.get("/health", (req, res) => {
-  res.status(200).json({ status: "OK" });
+  res.status(200).json({ status: "OK" , message : "Welcome to the new world Nityam" });
 });
 
 app.use("/api", apiLimiter);
