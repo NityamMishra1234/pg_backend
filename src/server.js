@@ -13,8 +13,9 @@ dotenv.config({
 
 app.use(
   cors({
-    origin: true,
-    credentials: true,
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 await connectDb();
