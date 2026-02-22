@@ -4,6 +4,7 @@ import {
   getRoomsByPG,
   updateRoom,
   deleteRoom,
+  getRoomDetails
 } from "./room.service.js";
 
 export const create = asyncHandler(async (req, res) => {
@@ -43,5 +44,18 @@ export const remove = asyncHandler(async (req, res) => {
   res.json({
     success: true,
     message: "Room deleted successfully",
+  });
+});
+
+
+export const details = asyncHandler(async (req, res) => {
+  const room = await getRoomDetails(
+    req.params.roomId,
+    req.user.id
+  );
+
+  res.json({
+    success: true,
+    data: room,
   });
 });
