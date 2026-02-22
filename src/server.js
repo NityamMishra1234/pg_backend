@@ -2,7 +2,6 @@ import dotenv from "dotenv";
 import connectDb from "../src/config/db.js"
 import app from "../src/app.js";
 import { startDueChecker } from "./modules/utils/cron.js";
-import cors from "cors";
 
 dotenv.config({
   path:
@@ -11,13 +10,7 @@ dotenv.config({
       : ".env",
 });
 
-app.use(
-  cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+
 await connectDb();
 
 const PORT = process.env.PORT || 5000;
