@@ -8,8 +8,17 @@ import studentRoutes from "./modules/student/student.routes.js";
 import paymentRoutes from "./modules/payment/payment.routes.js"
 import { errorHandler } from "./middleware/error.middleware.js";
 import rateLimit from "express-rate-limit";
+import cors from "cors"
 
 const app = express();
+
+app.use(
+  cors({
+      origin: "*",
+      methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+    })
+)
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
