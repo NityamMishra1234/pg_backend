@@ -6,6 +6,7 @@ import {
   getByPG,
   update,
   remove,
+  details
 } from "./room.controller.js";
 
 const router = express.Router();
@@ -16,5 +17,6 @@ router.post("/", validateRoom("create"), create);
 router.get("/:pgId", getByPG);
 router.put("/:id", validateRoom("update"), update);
 router.delete("/:id", remove);
+router.get("/:roomId/details", details);
 
 export default router;

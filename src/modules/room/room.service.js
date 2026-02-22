@@ -1,5 +1,6 @@
 import Room from "./room.model.js";
 import PG from "../pg/pg.model.js";
+import Student from "../student/student.model.js";
 
 export const createRoom = async (data, ownerId) => {
     const { pgId, roomNumber, totalBeds } = data;
@@ -87,4 +88,40 @@ export const deleteRoom = async (roomId, ownerId) => {
     }
 
     await room.deleteOne();
+};
+
+export const getRoomDetails = async (roomId, ownerId) => {
+  const room = await Room.findOne({
+    _id: roomId,
+    ownerId,
+  }).lean();
+
+  if (!room) throw new Error("Room not found");
+
+  const students = await Student.find({
+    roomId,
+    ownerId,
+    isActive: true,
+  })
+    .select("-__v -ownerId")
+    .lean();
+
+  const bedsWithStudents = room.beds.map((bed) => {
+    const student = students.find(
+      (s) => s.bedNumber === bed.bedNumber
+    );
+
+    return {
+      bedNumber: bed.bedNumber,
+      isOccupied: bed.isOccupied,
+      student: student || null,
+    };
+  });
+
+  return {
+    _id: room._id,
+    roomNumber: room.roomNumber,
+    totalBeds: room.totalBeds,
+    beds: bedsWithStudents,
+  };
 };
